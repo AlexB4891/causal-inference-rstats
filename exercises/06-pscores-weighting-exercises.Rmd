@@ -14,7 +14,7 @@ We are interested in examining the relationship between whether there were "Extr
 
 Below is the propensity score model you created in the previous exercise.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 seven_dwarfs <- seven_dwarfs_train_2018 %>%
   filter(hour == 9)
 
@@ -34,14 +34,25 @@ _After updating the code chunks below, change `eval = TRUE` before knitting._
 
 Create at "matched" data set using the same propensity score model as above and a caliper of 0.2.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 library(MatchIt)
-m <- matchit(___,
+
+m <- matchit(extra_magic_morning ~ wdw_ticket_season + close + weather_wdwhigh,
         data = seven_dwarfs,
-        ___,
-        ___
-        )
-matched_df <- ___(m)
+        caliper = 0.2 ,
+        link = "linear.logit") # ATM method
+
+
+m2 <- matchit(extra_magic_morning ~ wdw_ticket_season + close + poly(weather_wdwhigh,3),
+        data = seven_dwarfs,
+        caliper = 0.2 ,
+        link = "linear.logit") # ATM method
+
+# Average Treatment Effect among the Matched (ATM)
+
+matched_df <- get_matches(m) # Add "id" if there is already a variable called "id"
+
+matched_df2 <- get_matches(m2) # Add "id" if there is already a variable called "id"
 ```
 
 ## Your Turn (Weighting)
@@ -52,7 +63,8 @@ Add the ATE weights to the data frame, `df`
 
 ```{r, eval = FALSE}
 df <- df %>%
-  mutate(w_ate = ___)
+  mutate(w_ate = (extra_magic_morning/.fitted) + ((1-extra_magic_morning)/(1 - .fitted)))
+
 ```
 
 
@@ -62,7 +74,8 @@ Add ATM weights to the data frame, `df`
 
 ```{r, eval = FALSE}
 df <- df %>%
-  mutate(w_atm = ___)
+  mutate(w_atm = pmin(.fitted,1-.fitted)/((extra_magic_morning*.fitted) + 
+                                           ((1 - extra_magic_morning)*(1 -.fitted))))
 ```
 
 Stretch Goal 2: 
@@ -80,9 +93,33 @@ d <- df %>%
 ```{r, eval = FALSE, warning = FALSE}
 ggplot(d) +
   geom_histogram(bins = 50, aes(extra_magic_morning_p1), alpha = 0.5) + 
-  geom_histogram(bins = 50, aes(extra_magic_morning_p1, weight = ____), fill = "green", alpha = 0.5) + 
-  geom_histogram(bins = 50, alpha = 0.5, aes(x = extra_magic_morning_p0, y = -after_stat(count))) + 
-  geom_histogram(bins = 50, aes(x = extra_magic_morning_p0, weight = ____, y = -after_stat(count)), fill = "blue", alpha = 0.5) + 
+  geom_histogram(bins = 50, aes(extra_magic_morning_p1, weight = w_ate), fill = "green", alpha = 0.5) + 
+  geom_histogram(bins = 50, alpha = 0.5, aes(x = extra_magic_morning_p0, 
+                                             y = -after_stat(count))) +  # Flip the values upside down
+  geom_histogram(bins = 50, aes(x = extra_magic_morning_p0, 
+                                weight = w_ate,
+                                y = -after_stat(count)), fill = "blue", alpha = 0.5) + 
+  ylab("count") + xlab("p") +
+  geom_hline(yintercept = 0, lwd = 0.5) +
+  scale_y_continuous(label = abs) +
+  theme_minimal() + 
+  geom_rect(aes(xmin = 0.95, xmax = 1, ymin = 5, ymax = 100), fill = "#5DB854") + 
+  annotate("text", x = 0.975, y = 50, label = "trt", angle = 270, color = "white") + 
+  geom_rect(aes(xmin = 0.95, xmax = 1, ymin = -100, ymax = -5), fill = "#5154B8") + 
+  annotate("text", x = 0.975, y = -50, label = "control", angle = 270, color = "white")
+
+```
+
+
+```{r, eval = FALSE, warning = FALSE}
+ggplot(d) +
+  geom_histogram(bins = 50, aes(extra_magic_morning_p1), alpha = 0.5) + 
+  geom_histogram(bins = 50, aes(extra_magic_morning_p1, weight = w_atm), fill = "green", alpha = 0.5) + 
+  geom_histogram(bins = 50, alpha = 0.5, aes(x = extra_magic_morning_p0, 
+                                             y = -after_stat(count))) +  # Flip the values upside down
+  geom_histogram(bins = 50, aes(x = extra_magic_morning_p0, 
+                                weight = w_atm,
+                                y = -after_stat(count)), fill = "blue", alpha = 0.5) + 
   ylab("count") + xlab("p") +
   geom_hline(yintercept = 0, lwd = 0.5) +
   scale_y_continuous(label = abs) +

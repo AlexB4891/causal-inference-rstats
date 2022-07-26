@@ -86,19 +86,27 @@ Here's a data dictionary of the variables we need in the `seven_dwarfs` data set
 
 Now, fit a propensity score model for `extra_magic_morning` using the above proposed confounders.
 
-```{r, eval = FALSE}
-propensity_model <- ___(
-  ___ ~ ___,
+```{r, eval = TRUE}
+
+# Exposure vs confounders 
+
+propensity_model <- glm(
+   extra_magic_morning ~ wdw_ticket_season + close + weather_wdwhigh,
   data = seven_dwarfs,
-  family = _____
+  family = binomial()  # For a logistic regression, not a linear one
 )
+
+
+# We can add any non linear relationship
 ```
 
 Add the propensity scores to the `seven_dwarfs` data set, call this new dataset `df`.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 df <- propensity_model %>%
-  ____(type.predict = ____, data = ____)
+  augment(type.predict = "response", data = seven_dwarfs)
+
+df %>% select(extra_magic_morning,wdw_ticket_season,close,weather_wdwhigh,.fitted)
 ```
 
 Stretch Goal 1:
@@ -107,5 +115,13 @@ Examine two histograms of the propensity scores, one days with Extra Magic Morni
 How do these compare?
 
 ```{r}
+
+df %>% 
+  mutate(across(extra_magic_morning,factor)) %>% 
+  ggplot() +
+  geom_histogram(aes(x = .fitted,
+                   group = extra_magic_morning,
+                   fill = extra_magic_morning),
+               alpha = 0.4,position = "identity")
 
 ```

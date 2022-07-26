@@ -4,6 +4,9 @@ output: html_document
 ---
 
 ```{r setup}
+
+install.packages(c("ggdag","dagitty"))
+
 library(tidyverse)
 library(ggdag)
 library(dagitty)
@@ -14,7 +17,19 @@ set.seed(1234)
 
 Descriptively, drinking coffee is associated with lung cancer. Does drinking coffee cause lung cancer? 
 
+
 1. Specify a DAG with `dagify()`. Write your assumption that `smoking` causes `cancer` as a formula. 
+
+
+```{r}
+dagify(
+  cancer ~ smoking,
+  coffee ~ smoking,
+  exposure = "coffee",
+  outcome = "cancer"
+) %>% ggdag()
+```
+
 2. We're going to assume that coffee does *not* cause cancer, so there's no formula for that. But we still need to declare our causal question. Specify "coffee" as the exposure and "cancer" as the outcome (both in quotations marks).
 3. Plot the DAG using `ggdag()`
 
@@ -23,12 +38,12 @@ Stretch goal: Underneath the hood, `ggdag()` calls `tidy_dagitty()` on `dagitty`
 Stretch goal: We are assuming that coffee does *not* cause lung cancer. In causal diagram terminology, we want to know if these two factors are *D-connected* (as in, directionally connected). Since we are assuming that there's no causal relationship, any D-connection is caused by other factors. Try `ggdag_dconnected()` to see if we coffee and lung cancer are D-connected.
 
 ```{r}
-coffee_cancer_dag <- ______(
-  ______ ~ ______,
+coffee_cancer_dag <- dagify(
+  cancer ~ smoking,
   smoking ~ addictive,
   coffee ~ addictive,
-  exposure = "______",
-  outcome = "______",
+  exposure = "coffee",
+  outcome = "cancer",
   labels = c(
     "coffee" = "Coffee", 
     "cancer" = "Lung Cancer", 
@@ -37,8 +52,12 @@ coffee_cancer_dag <- ______(
   )
 )
 
-______(coffee_cancer_dag)
+ggdag(coffee_cancer_dag)
+
+ggdag_dconnected(coffee_cancer_dag)
 ```
+
+Coffee drinking has a relationship to cancer troguh the confounding. 
 
 ## Your Turn 2
 
@@ -52,11 +71,16 @@ Stretch goal: ggdags are just ggplots! You can add themes, geoms, and other {ggp
 Stretch goal: The variable names are a little hard to read. We specified some labels earlier, so let's use them. In the tidy DAG, these are called `label`. In `ggdag_paths()`, add the argument `use_labels = "label"` and remove the node text with `text = FALSE`.
 
 ```{r}
-coffee_cancer_dag %>% 
-  ______() %>% 
-  ______()
+dag_coffe_cancer <- coffee_cancer_dag %>% 
+  tidy_dagitty() %>% 
+  dag_paths()
 
-______
+# Shows the open path variable
+
+ggdag_paths(coffee_cancer_dag) +
+  theme_minimal() +
+  labs(title = "Confounding pathways",
+       subtilte = "No causal relation between coffe drinking and  cancer")
 ```
 
 
@@ -70,11 +94,57 @@ Now that we know the open, confounding pathways (sometimes called "backdoor path
 Stretch goal: Sometimes, we know a variable plays a vital role in a causal diagram but we can't measure it, or we simply don't have it in our data set. You can tell {ggdag} that a variable is unmeasured with the `latent` argument in `dagify()`. Re-run the `dagify()` call above, but set `latent = "addictive"` (meaning we can't or haven't measured this variable). Plot it with `ggdag_adjustment_set()`. What's different? Now, try setting `latent = c("addictive", "smoking")` and plotting the adjustment set. What do the results mean?
 
 ```{r}
-______(______)
+ggdag_adjustment_set(dag_coffe_cancer,use_labels = "label",text = FALSE)
 
-cancer ~ ______
-cancer ~ ______
+cancer ~ coffee + adictive
+cancer ~ smoking
 ```
+
+
+```{r}
+coffee_cancer_dag_2 <- dagify(
+  cancer ~ smoking,
+  smoking ~ addictive,
+  coffee ~ addictive,
+  exposure = "coffee",
+  outcome = "cancer",
+  labels = c(
+    "coffee" = "Coffee", 
+    "cancer" = "Lung Cancer", 
+    "smoking" = "Smoking", 
+    "addictive" = "Addictive \nBehavior"
+  ),
+  latent = "addictive" # You dont have addictive behavior variable
+)
+
+
+ggdag_adjustment_set(coffee_cancer_dag_2)
+
+```
+
+```{r}
+coffee_cancer_dag_3 <- dagify(
+  cancer ~ smoking,
+  smoking ~ addictive,
+  coffee ~ addictive,
+  exposure = "coffee",
+  outcome = "cancer",
+  labels = c(
+    "coffee" = "Coffee", 
+    "cancer" = "Lung Cancer", 
+    "smoking" = "Smoking", 
+    "addictive" = "Addictive \nBehavior"
+  ),
+  latent = c("addictive","smoking") # You dont have addictive behavior variable, we dont have sking too
+)
+
+
+ggdag_adjustment_set(coffee_cancer_dag_3)
+
+```
+
+
+
 
 # Take aways
 

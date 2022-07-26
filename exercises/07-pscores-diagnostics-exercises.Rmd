@@ -41,23 +41,30 @@ Calculate the standardized mean differences with and without weights
 smds <- df %>% 
   mutate(close = as.numeric(close)) %>% 
   tidy_smd(
-  .vars = ____,
-  .group = ____,
-  .wts = ____
+  .vars = c( wdw_ticket_season , close , weather_wdwhigh),
+  .group = extra_magic_morning,
+  .wts = w_ate
 )
+
+
 ```
 
 Create the Love Plot using ggplot
 
 ```{r, eval = FALSE}
 ggplot(
-  data = ____,
-  aes(x = abs(____), y = ____, group = ____, color = ____)
+  data = smds,
+  aes(x = abs(smd), y = variable, group = weights, color = weights)
 ) +
   geom_line(orientation = "y") +
   geom_point() + 
   geom_vline(xintercept = 0.1, color = "black", size = 0.1)
+
+
+
 ```
+
+
 
 
 
@@ -66,23 +73,26 @@ ggplot(
 Create an unweighted ECDF for `weather_wdwhigh` by whether or not the day had Extra Magic Hours.
 
 ```{r, eval = FALSE}
-ggplot(df, aes(x = ____, group = ____, color = factor(____))) +
-  ____() +
+ggplot(df, aes(x = weather_wdwhigh, 
+               group = extra_magic_morning,
+               color = factor(extra_magic_morning))) +
+  geom_ecdf() +
   scale_color_manual("Extra Magic Hours", values = c("#5154B8", "#5DB854"),
                      labels = c("Yes", "No")) + 
-  xlab(____) + 
+  xlab("Weather") + 
   ylab("Proportion <= x") 
 ```
-
+The extra magic days will be more cooler than those that not. 
 
 Create an weighted ECDF for `weather_wdwhigh` by whether or not the day had Extra Magic Hours.
 
 ```{r, eval = FALSE}
-ggplot(df, aes(x = ____, color = factor(____))) +
-  ____(aes(weights = ____)) + 
+ggplot(df, aes(x = weather_wdwhigh, 
+               color = factor(extra_magic_morning))) +
+  geom_ecdf(aes(weights = w_ate)) + 
   scale_color_manual("Extra Magic Hours", values = c("#5154B8", "#5DB854"),
                      labels = c("Yes", "No")) +
-  xlab(____) +
+  xlab("Historical high weather") +
   ylab("Proportion <= x (Weighted)")
 ```
 
