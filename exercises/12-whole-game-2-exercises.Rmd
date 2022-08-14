@@ -37,6 +37,8 @@ Our thanks to Andrew Heiss for providing these data!
 
 ```{r}
 library(causalworkshop)
+
+
 net_data
 ```
 
@@ -67,6 +69,52 @@ ggdag_status(mosquito_dag) +
 Now, conduct the causal analysis as you see fit! Feel free to work in groups and to ask us questions.
 
 ```{r}
+
+
+fit_model <- function(split,...){
+  
+  .df <- analysis(split)
+
+  propensity_model <- glm(net ~ income + health ,data = net_data,family = binomial() ) %>% 
+  augment(type.predict = "response",data = .df)
+
+
+probability_weights <- propensity_model %>% 
+  mutate(w_ate = (net/.fitted) + (( 1 - net)/( 1 - .fitted)))
+
+outcome_model <- lm(data = probability_weights,
+                    formula = health ~ net,
+                    weights = w_ate) %>% 
+  tidy()
+
+    
+}
+
+
+
+ipw_results <- bootstraps(net_data, 1000, apparent = TRUE) %>%
+mutate(results = map(splits, fit_model))
+
+
+boot_estimate <- int_t(.data = ipw_results,results) %>% 
+  filter(term == "net")
+
+```
+
+# Stadard mean distance
+
+```{r}
+smds <- tidy_smd(
+  net_data,
+  .vars = c(income, health),
+  .group = net,
+  .wts = starts_with("w_")
+)
+```
+
+
+```{r}
+tip_c(effect = 3.318153	,smd = pull(smds,smd)) 
 
 ```
 

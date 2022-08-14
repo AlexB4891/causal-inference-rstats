@@ -16,5 +16,18 @@ Use the `tip_coef()` function to conduct a sensitivity analysis for the estimate
 
 ```{r}
 
+tipr::tip_coef(effect = 0.3, #Effect
+               smd =  0.5)   # Calculate the smd
+
+
+
+
+tipr::tip_coef(effect = 0.3, #Effect
+               smd =  seq(0,1,0.1)) %>% 
+  ggplot(aes(smd, outcome_association)) +# Calculate the smd
+  geom_line() +
+  geom_point()
+
+
 ```
 

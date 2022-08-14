@@ -76,17 +76,17 @@ First, let’s calculate the propensity score model, which will be the denominat
 
 ```{r}
 denominator_model <- lm(
-  __________, 
+  avg_spostmin ~ weather_wdwhigh + close + wdw_ticket_season + extra_magic_morning, 
   data = wait_times
 )
 
 denominators <- denominator_model %>% 
-  ______(data = wait_times) %>% 
+  augment(data = wait_times) %>% 
   mutate(
     denominator = dnorm(
       avg_spostmin, 
-      mean = ______, 
-      sd = mean(______, na.rm = TRUE)
+      mean = .fitted, 
+      sd = mean(.sigma, na.rm = TRUE)
     )
   ) %>% 
   select(date, denominator)
@@ -114,7 +114,7 @@ Let’s now fit the marginal density to use for stabilized weights:
 
 ```{r}
 numerator_model <- lm(
-  ___ ~ ___, 
+  avg_spostmin ~ 1, 
   data = wait_times
 )
 
@@ -123,8 +123,8 @@ numerators <- numerator_model %>%
   mutate(
     numerator = dnorm(
       avg_spostmin, 
-      ___, 
-      mean(___, na.rm = TRUE)
+      .fitted, 
+      mean(.sigma, na.rm = TRUE)
     )
   ) %>% 
   select(date, numerator)
@@ -132,7 +132,7 @@ numerators <- numerator_model %>%
 wait_times_wts <- wait_times %>% 
   left_join(numerators, by = "date") %>% 
   left_join(denominators, by = "date") %>% 
-  mutate(swts = ___)
+  mutate(swts = numerator/denominator)
 ```
 
 Take a look at the weights now that we've stabilized them:
@@ -159,10 +159,12 @@ Now, let's fit the outcome model!
 1. Estimate the relationship between posted wait times and actual wait times using the stabilized weights we just created. 
 
 ```{r}
-lm(___ ~ ___, weights = ___, data = wait_times_wts) %>% 
+lm( avg_sactmin ~ avg_spostmin,
+   weights = swts,
+   data = wait_times_wts) %>% 
   tidy() %>% 
   filter(term == "avg_spostmin") %>% 
-  mutate(estimate = estimate * 10)
+  mutate(estimate = estimate * 10) #The estimate is in minutes, to make it meaninful we multimple for every 10 minutes
 ```
 
 ## Stretch goal: Boostrapped intervals
@@ -171,18 +173,28 @@ Bootstrap confidence intervals for our estimate.
 
 There's nothing new here. Just remember, you need to bootstrap the entire modeling process!
 
-```{r}
+```{r, eval = FALSE}
+
+# Me quede aqui
 set.seed(1234)
 library(rsample)
 
 fit_model <- function(split, ...) { 
   .df <- analysis(split) 
   
+  
+  lm( avg_sactmin ~ avg_spostmin,
+   weights = swts,
+   data = wait_times_wts) %>% 
+  tidy() %>% 
+  filter(term == "avg_spostmin") %>% 
+  mutate(estimate = estimate * 10) 
+  
   # fill in the rest!
 }
 
 model_estimate <- bootstraps(wait_times, 1000, apparent = TRUE) %>% 
-  mutate(results = map(splits, ______))
+  mutate(results = map(splits, fit_model))
 
 # using bias-corrected confidence intervals
 boot_estimate <- int_bca(_______, results, .fn = fit_model)

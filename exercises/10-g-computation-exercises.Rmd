@@ -22,8 +22,8 @@ First, let's fit the model.
 2. Save the model as `standardized_model`
 
 ```{r}
-_______ ___ _______(
-  avg_spostmin ~ _______ + wdw_ticket_season + close + weather_wdwhigh, 
+model_fit <-  lm(
+  avg_spostmin ~ extra_magic_morning + wdw_ticket_season + close + weather_wdwhigh, 
   data = seven_dwarfs
 )
 ```
@@ -34,23 +34,24 @@ _______ ___ _______(
 Now that we've fit a model, we need to clone our data set. To do this, we'll simply mutate it so that in one set, all participants have `extra_magic_morning` set to 0 and in another, all participants have `extra_magic_morning` set to 1.
 
 1. Create the cloned data sets, called `yes` and `no`.
-2. For both data sets, use `standardized_model` and `augment()` to get the predicted values. Use the `newdata` argument in `augment()` with the relevant cloned data set. Then, select only the fitted value. Rename `.fitted` to either `yes_extra_hours` or `no_extra_hours` (use the pattern `select(new_name = old_name)`).
+2. For both data sets, use `standardized_model` (i call it `model_fit`) and `augment()` to get the predicted values. Use the `newdata` argument in `augment()` with the relevant cloned data set. Then, select only the fitted value. Rename `.fitted` to either `yes_extra_hours` or `no_extra_hours` (use the pattern `select(new_name = old_name)`).
 3. Save the predicted data sets as`predicted_yes` and `predicted_no`.
 
 ```{r}
-_______ <- seven_dwarfs %>% 
-  _______
+no_extra_hours <- seven_dwarfs %>% 
+  mutate(extra_magic_morning == 0)
 
-_______ <- seven_dwarfs %>% 
-  _______
+yes_extra_hours <- seven_dwarfs %>% 
+  mutate(extra_magic_morning == 1)
 
-predicted_yes <- standardized_model %>% 
-  _______(newdata = _______) %>%
-  _______
+predicted_yes <- model_fit %>% 
+  augment(newdata = yes_extra_hours) %>%
+  select(predicted_yes = .fitted)
 
-predicted_no <- standardized_model %>% 
-  _______(newdata = _______) %>%
-  _______
+predicted_no <- model_fit %>% 
+  augment(newdata = no_extra_hours) %>%
+  select(predicted_no = .fitted)
+
 ```
 
 # Your Turn 3
@@ -61,11 +62,12 @@ Finally, we'll get the mean differences between the values.
 2. Summarize the predicted values to create three new variables: `mean_yes`, `mean_no`, and `difference`. The first two should be the means of `yes_extra_hours` and `no_extra_hours`. `difference` should be `mean_yes` minus `mean_no`.
 
 ```{r}
-_______ %>% 
-  _______(
-    mean_yes = _______,
-    mean_no = _______,
-    difference = _______
+bind_cols(predicted_yes,
+          predicted_no) %>% 
+  summarise(
+    mean_yes = mean(predicted_yes,na.rm = T),
+    mean_no = mean(predicted_no,na.rm = T),
+    difference = mean_yes - mean_no
   )
 ```
 
