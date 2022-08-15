@@ -1,0 +1,79 @@
+---
+title: "Efectos de la legislación ecuatoriana sobre el pago efectivo del impuesto a la renta"
+subtitle: "Estudio sobre el anexo de participes, accionistas, miembros de directorio y administratores (APS) en el periodo 2012 - 2020"
+author: 
+format: html
+editor: visual
+---
+
+## Versión de R
+
+```{r}
+
+R.version
+```
+
+## Librerias
+
+```{r, include=TRUE}
+
+library(ggdag)
+library(tidyverse)
+
+```
+
+## Preguntas causales
+
+¿Las empresas que no presentan (o presentan de manera incompleta) el anexo APS transparentaron su información societaria tras afrontar las sanciones propuestas en la reforma del 2015?
+
+¿La empresas redujeron su participación societaria con residencia anexo APS en paraísos fiscales tras afrontar las sanciones propuestas en la reforma del 2015?
+
+> En la reforma del 2015 se pone en vigencia la sanción del 3% la tarifa del impuesto a la renta a las empresas que no presenten el anexo APS o en su defecto tengan más del 50% de su participación societaria en paraísos fiscales.
+
+## Variables por fuentes
+
+Anexo APS:
+
+-   Año Fiscal (Año declarado, se toma la información presentada en el periodo, no las modificaciones realizadas en periodos posteriores)
+
+-   Identificación de la sociedad informante anonimizada.
+
+-   Nivel de participación societaria. Indica el nivel de propiedad de acciones de la sociedad informante. Por ejemplo, una sociedad que declara un socio de tercer nivel de participación, quiere decir que la propiedad de la participación pasa por 2 sociedades antes de volverse efectiva
+
+-   Identificación de sociedad accionista anonimizada. Depende del nivel de participación, considerando que uno de los propósitos del anexo APS es identificar al beneficiario final. Por construcción de las bases de datos **el nivel de participación 1 será la misma sociedad informante**. El resto de niveles son participación indirecta (sociedades accionistas).
+
+-    Identificación anonimizada de los accionistas. Se continua en la cadena de propiedad de acciones hasta llegar el beneficiario final que puede ser:
+
+    -   Personas naturales con residencia fiscal en Ecuador
+
+    -   Personas naturales o sociedades con residencia fiscal en el extranjero
+
+    -   El estado ecuatoriano, empresas públicas, organismos internacionales. dependencias y organismos de estados extranjeros.
+
+-   Porcentaje de participación. Indica el porcentaje de participación en la sociedad accionista declarada por la sociedad informante en un determinado nivel. El 100% se alcanza como todos los socios de la sociedad accionista en un determinado nivel.
+
+-   Porcentaje efectivo. Porcentaje de participación que tiene el beneficiario final (los tipos señalados en el punto anterior) de el total de la participación de la sociedad informante.
+
+-    Indicador de si el accionista tiene residencia en paraísos fiscales.
+
+```{r}
+
+coords <- tibble(x = c(2,1,3,2,3), y = c(1,0,0,-1,-2),name = c("informante","nivel_2","nivel_2_1","nivel_3","accionista"))
+
+ dagify(accionista ~ nivel_3,
+        nivel_3 ~ nivel_2,
+        nivel_2 ~ informante,
+        nivel_2_1 ~ informante,
+        coords = coords) %>% 
+   ggdag(node_size = 20)
+
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
