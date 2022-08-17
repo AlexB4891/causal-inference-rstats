@@ -1,14 +1,43 @@
 ---
-title: "Cálculo de la participación del beneficiario final"
-author: "Alex Bajaña"
-institute:  "Banco Mundial"
-date: "Agosto 18, 2022"
-format: revealjs
-logo: "logo.jpg"
-editor: visual
-chalkboard: true
-title-block-banner: true
+title: "Cálculo de la participación efectiva del beneficiario final"
+subtitle: "Documento metodológico del Anexo APS"  
+author: 
+  - "Alex Bajaña"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+      css: xaringan-themer.css
+      nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: googlecode
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+layout: true
 ---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_mono_light(base_color = "#23395b")
+```
+
+```{r}
+xaringanExtra::use_logo("logo.png")
+```
 
 ## Environment
 
@@ -27,8 +56,60 @@ Environment:
 
 ```{r}
 
-R.version[1:10]
+R.version[1:8]
 ```
+
+---
+class: inverse, center, middle
+
+# Propositos del equipo de investigación del Banco Mundial
+---
+
+## Preguntas causales
+
+**¿Las empresas que no presentan (o presentan de manera incompleta) el anexo APS transparentaron su información societaria tras afrontar las sanciones propuestas en la reforma del 2015?**
+
+**¿La empresas redujeron su participación societaria con residencia anexo APS en paraísos fiscales tras afrontar las sanciones propuestas en la reforma del 2015?**
+
+> En la reforma del 2015 se pone en vigencia la sanción del 3% la tarifa del impuesto a la renta a las empresas que no presenten el anexo APS o en su defecto tengan más del 50% de su participación societaria en paraísos fiscales.
+
+---
+
+## Variables por fuentes
+
+Anexo APS:
+
+-   Año Fiscal (Año declarado, se toma la información presentada en el periodo, no las modificaciones realizadas en periodos posteriores)
+
+-   Identificación de la sociedad informante anonimizada.
+
+-   Nivel de participación societaria. Indica el nivel de propiedad de acciones de la sociedad informante. Por ejemplo, una sociedad que declara un socio de tercer nivel de participación, quiere decir que la propiedad de la participación pasa por 2 sociedades antes de volverse efectiva
+
+-   Identificación de sociedad accionista anonimizada. Depende del nivel de participación, considerando que uno de los propósitos del anexo APS es identificar al beneficiario final. Por construcción de las bases de datos **el nivel de participación 1 será la misma sociedad informante**. El resto de niveles son participación indirecta (sociedades accionistas).
+
+---
+
+## Variables por fuentes
+
+-   Identificación anonimizada de los accionistas. Se continua en la cadena de propiedad de acciones hasta llegar el beneficiario final que puede ser:
+
+  -   Personas naturales con residencia fiscal en Ecuador
+  -   Personas naturales o sociedades con residencia fiscal en el extranjero
+
+  -   El estado ecuatoriano, empresas públicas, organismos internacionales. dependencias y organismos de estados extranjeros.
+
+-   Porcentaje de participación. Indica el porcentaje de participación en la sociedad accionista declarada por la sociedad informante en un determinado nivel. El 100% se alcanza como todos los socios de la sociedad accionista en un determinado nivel.
+
+-   Porcentaje efectivo. Porcentaje de participación que tiene el beneficiario final (los tipos señalados en el punto anterior) de el total de la participación de la sociedad informante.
+
+-   Indicador de si el accionista tiene residencia en paraísos fiscales.
+
+---
+
+class: inverse, center, middle
+
+# Ejemplo simulado a partir de la experiencia con los datos provistos por el SRI
+---
 
 ## Estructura del APS
 
@@ -74,14 +155,16 @@ raw_data %>%
   tab_footnote(footnote = "El color indica el nivel de participación, entre más intenso el color más directa es la propíedad de la participación",
                locations = cells_column_labels(columns = `Nivel accionario`)) %>% 
   tab_footnote(footnote = "El color purpura indica las sociedades padre de la propuedad indirecta",
-               locations = cells_column_labels(columns = Accionista))
+               locations = cells_column_labels(columns = Accionista)) %>% 
+  tab_options(table.background.color = "transparent",
+              table.font.size = "12px") 
 
 
 ```
+---
 
 ## Proceso de cálculo de la propiedad efectiva
 
-::: incremental
 1.  Identificación de las sociedades informadas que a la vez *se desglosan en un subsiguiente nivel de participación.*
 
 2.  Asignación de la participación de las sociedades informadas hasta terminar la cadena de propiedad.
@@ -89,19 +172,24 @@ raw_data %>%
 3.  Identificación de los beneficiarios finales
 
 4.  Cálculo de la participación efectiva sobre la sociedad informante.
-:::
+
+---
 
 ## Para qué hacemos esto
 
-::: incremental
 -   La reforma del 2015 nos indica qué si la participación total de la empresa en paraísos fiscales supera el 50% la empresa deberá pagar 3% adicional de impuesto a la renta sobre la totalidad de la base imponible
 
 -   La misma sanción aplica para la no presentación del APS
 
 -   Si la empresa declara participación efectiva en paraísos fiscales menor al 50% o presenta el APS incompleto, la sanción se aplicará sobre el proporcional de la base imponible considerando en el primer caso la participación en paraísos fiscales y en el segundo el porcentaje no reportado en el APS
-:::
+
+---
+class: inverse, center, middle
 
 # Función de cálculo de la participación efectiva
+
+---
+
 
 ## Tablas auxiliares
 
@@ -124,6 +212,8 @@ beneficiarios <- raw_data %>%
 
 ```
 
+---
+
 ## Identificación de los padres
 
 ```{r, echo=TRUE}
@@ -143,6 +233,8 @@ child_parent_soc <- raw_data %>%
     })
 ```
 
+---
+
 ## Creación de las cadenas de participación
 
 ```{r, echo=TRUE}
@@ -157,6 +249,8 @@ porcent_prelim <- child_parent_soc %>%
       inner_join(parents_p,by = c("accionista" = "sociedad")) %>% 
       mutate(nivel_aps = nivel_aps)
 ```
+
+---
 
 ## Re-escritura de los porcentajes
 
@@ -180,6 +274,8 @@ expresiones <- set_names(x = rlang::parse_exprs(argumentos$exp),
  
 ```
 
+---
+
 ## Volvemos a los datos originales
 
 ```{r, echo=TRUE}
@@ -200,6 +296,8 @@ data_procesada <- data_procesada %>%
   mutate(product = prod(across(.cols = matches("porcentaje")),
                         na.rm = T) ) 
 ```
+
+---
 
 ## Comprobación
 

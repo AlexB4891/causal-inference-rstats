@@ -42,7 +42,9 @@ Anexo APS:
 
 -   Identificación de sociedad accionista anonimizada. Depende del nivel de participación, considerando que uno de los propósitos del anexo APS es identificar al beneficiario final. Por construcción de las bases de datos **el nivel de participación 1 será la misma sociedad informante**. El resto de niveles son participación indirecta (sociedades accionistas).
 
--    Identificación anonimizada de los accionistas. Se continua en la cadena de propiedad de acciones hasta llegar el beneficiario final que puede ser:
+-   Identificación anonimizada de los accionistas. Se continua en la cadena de propiedad de acciones hasta llegar el beneficiario final que puede ser:
+
+<!-- -->
 
     -   Personas naturales con residencia fiscal en Ecuador
 
@@ -54,7 +56,7 @@ Anexo APS:
 
 -   Porcentaje efectivo. Porcentaje de participación que tiene el beneficiario final (los tipos señalados en el punto anterior) de el total de la participación de la sociedad informante.
 
--    Indicador de si el accionista tiene residencia en paraísos fiscales.
+-   Indicador de si el accionista tiene residencia en paraísos fiscales.
 
 ```{r}
 
