@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cálculo de la participación efectiva del beneficiario final</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alex Bajaña" />
+    <meta name="date" content="2022-08-17" />
+    <script src="ejercicio_base_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Cálculo de la participación efectiva del beneficiario final
+]
+.subtitle[
+## Documento metodológico del Anexo APS
+]
+.author[
+### Alex Bajaña
+]
+.date[
+### 2022-08-17
+]
+
+---
+
+
+
+
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 110px;
+height: 128px;
+z-index: 0;
+background-image: url(logo.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+## Environment
+
+Librerías:
+
+
+```r
+library(tidyverse)
+library(gt)
+library(scales)
+library(readxl)
+library(glue)
+```
+
+Environment:
+
+
+```
+##          _                 
+## platform x86_64-w64-mingw32
+## arch     x86_64            
+## os       mingw32           
+## crt      ucrt              
+## system   x86_64, mingw32   
+## status                     
+## major    4                 
+## minor    2.0
+```
+
+---
+class: inverse, center, middle
+
+# Propositos del equipo de investigación del Banco Mundial
+---
+
+## Preguntas causales
+
+**¿Las empresas que no presentan (o presentan de manera incompleta) el anexo APS transparentaron su información societaria tras afrontar las sanciones propuestas en la reforma del 2015?**
+
+**¿La empresas redujeron su participación societaria con residencia anexo APS en paraísos fiscales tras afrontar las sanciones propuestas en la reforma del 2015?**
+
+&gt; En la reforma del 2015 se pone en vigencia la sanción del 3% la tarifa del impuesto a la renta a las empresas que no presenten el anexo APS o en su defecto tengan más del 50% de su participación societaria en paraísos fiscales.
+
+---
+
+## Variables por fuentes
+
+Anexo APS:
+
+-   Año Fiscal (Año declarado, se toma la información presentada en el periodo, no las modificaciones realizadas en periodos posteriores)
+
+-   Identificación de la sociedad informante anonimizada.
+
+-   Nivel de participación societaria. Indica el nivel de propiedad de acciones de la sociedad informante. Por ejemplo, una sociedad que declara un socio de tercer nivel de participación, quiere decir que la propiedad de la participación pasa por 2 sociedades antes de volverse efectiva
+
+-   Identificación de sociedad accionista anonimizada. Depende del nivel de participación, considerando que uno de los propósitos del anexo APS es identificar al beneficiario final. Por construcción de las bases de datos **el nivel de participación 1 será la misma sociedad informante**. El resto de niveles son participación indirecta (sociedades accionistas).
+
+---
+
+## Variables por fuentes
+
+-   Identificación anonimizada de los accionistas. Se continua en la cadena de propiedad de acciones hasta llegar el beneficiario final que puede ser:
+
+  -   Personas naturales con residencia fiscal en Ecuador
+  -   Personas naturales o sociedades con residencia fiscal en el extranjero
+
+  -   El estado ecuatoriano, empresas públicas, organismos internacionales. dependencias y organismos de estados extranjeros.
+
+-   Porcentaje de participación. Indica el porcentaje de participación en la sociedad accionista declarada por la sociedad informante en un determinado nivel. El 100% se alcanza como todos los socios de la sociedad accionista en un determinado nivel.
+
+-   Porcentaje efectivo. Porcentaje de participación que tiene el beneficiario final (los tipos señalados en el punto anterior) de el total de la participación de la sociedad informante.
+
+-   Indicador de si el accionista tiene residencia en paraísos fiscales.
+
+---
+
+class: inverse, center, middle
+
+# Ejemplo simulado a partir de la experiencia con los datos provistos por el SRI
+---
+
+## Estructura del APS
+
+<div id="nkarqpnsfx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#nkarqpnsfx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: rgba(255, 255, 255, 0);
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_heading {
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+  border-bottom-color: rgba(255, 255, 255, 0);
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: rgba(255, 255, 255, 0);
+  border-bottom-width: 0;
+}
+
+#nkarqpnsfx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: rgba(255, 255, 255, 0);
+  border-top-width: 0;
+}
+
+#nkarqpnsfx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_col_heading {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nkarqpnsfx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nkarqpnsfx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nkarqpnsfx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nkarqpnsfx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nkarqpnsfx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nkarqpnsfx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nkarqpnsfx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nkarqpnsfx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nkarqpnsfx .gt_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nkarqpnsfx .gt_stub {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nkarqpnsfx .gt_stub_row_group {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nkarqpnsfx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nkarqpnsfx .gt_summary_row {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nkarqpnsfx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nkarqpnsfx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_grand_summary_row {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nkarqpnsfx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nkarqpnsfx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_footnotes {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nkarqpnsfx .gt_sourcenotes {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nkarqpnsfx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nkarqpnsfx .gt_left {
+  text-align: left;
+}
+
+#nkarqpnsfx .gt_center {
+  text-align: center;
+}
+
+#nkarqpnsfx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nkarqpnsfx .gt_font_normal {
+  font-weight: normal;
+}
+
+#nkarqpnsfx .gt_font_bold {
+  font-weight: bold;
+}
+
+#nkarqpnsfx .gt_font_italic {
+  font-style: italic;
+}
+
+#nkarqpnsfx .gt_super {
+  font-size: 65%;
+}
+
+#nkarqpnsfx .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#nkarqpnsfx .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#nkarqpnsfx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nkarqpnsfx .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#nkarqpnsfx .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#nkarqpnsfx .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Ejemplo simulado a partir de los datos originales del APS</strong></th>
+    </tr>
+    
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Informante</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Nivel accionario</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Nivel accionario</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Accionista</strong><sup class="gt_footnote_marks">2</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Porcentaje</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_right" style="background-color: #3F96F5; color: #000000;">1</td>
+<td class="gt_row gt_left" style="background-color: #B496CB;">R2</td>
+<td class="gt_row gt_left">12%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_right" style="background-color: #3F96F5; color: #000000;">1</td>
+<td class="gt_row gt_left" style="background-color: #B496CB;">R3</td>
+<td class="gt_row gt_left">28%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_right" style="background-color: #3F96F5; color: #000000;">1</td>
+<td class="gt_row gt_left">R4</td>
+<td class="gt_row gt_left">13%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_right" style="background-color: #3F96F5; color: #000000;">1</td>
+<td class="gt_row gt_left">R5</td>
+<td class="gt_row gt_left">5%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_right" style="background-color: #3F96F5; color: #000000;">1</td>
+<td class="gt_row gt_left">R6</td>
+<td class="gt_row gt_left">42%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R2</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left">R7</td>
+<td class="gt_row gt_left">10%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R2</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left">R8</td>
+<td class="gt_row gt_left">30%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R2</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left" style="background-color: #B496CB;">R9</td>
+<td class="gt_row gt_left">60%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R3</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left">R10</td>
+<td class="gt_row gt_left">76%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R3</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left">R11</td>
+<td class="gt_row gt_left">2%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R3</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left">R12</td>
+<td class="gt_row gt_left">20%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R3</td>
+<td class="gt_row gt_right" style="background-color: #6498D1; color: #000000;">2</td>
+<td class="gt_row gt_left" style="background-color: #B496CB;">R13</td>
+<td class="gt_row gt_left">2%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R9</td>
+<td class="gt_row gt_right" style="background-color: #8BA3BD; color: #000000;">3</td>
+<td class="gt_row gt_left">R14</td>
+<td class="gt_row gt_left">90%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R9</td>
+<td class="gt_row gt_right" style="background-color: #8BA3BD; color: #000000;">3</td>
+<td class="gt_row gt_left">R15</td>
+<td class="gt_row gt_left">1%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R9</td>
+<td class="gt_row gt_right" style="background-color: #8BA3BD; color: #000000;">3</td>
+<td class="gt_row gt_left">R16</td>
+<td class="gt_row gt_left">9%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R13</td>
+<td class="gt_row gt_right" style="background-color: #8BA3BD; color: #000000;">3</td>
+<td class="gt_row gt_left">R17</td>
+<td class="gt_row gt_left">63%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R13</td>
+<td class="gt_row gt_right" style="background-color: #8BA3BD; color: #000000;">3</td>
+<td class="gt_row gt_left">R18</td>
+<td class="gt_row gt_left">24%</td></tr>
+    <tr><td class="gt_row gt_left">R1</td>
+<td class="gt_row gt_left">R13</td>
+<td class="gt_row gt_right" style="background-color: #8BA3BD; color: #000000;">3</td>
+<td class="gt_row gt_left">R19</td>
+<td class="gt_row gt_left">13%</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="5"><sup class="gt_footnote_marks">1</sup> El color indica el nivel de participación, entre más intenso el color más directa es la propíedad de la participación</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="5"><sup class="gt_footnote_marks">2</sup> El color purpura indica las sociedades padre de la propuedad indirecta</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+---
+
+## Proceso de cálculo de la propiedad efectiva
+
+1.  Identificación de las sociedades informadas que a la vez *se desglosan en un subsiguiente nivel de participación.*
+
+2.  Asignación de la participación de las sociedades informadas hasta terminar la cadena de propiedad.
+
+3.  Identificación de los beneficiarios finales
+
+4.  Cálculo de la participación efectiva sobre la sociedad informante.
+
+---
+
+## Para qué hacemos esto
+
+-   La reforma del 2015 nos indica qué si la participación total de la empresa en paraísos fiscales supera el 50% la empresa deberá pagar 3% adicional de impuesto a la renta sobre la totalidad de la base imponible
+
+-   La misma sanción aplica para la no presentación del APS
+
+-   Si la empresa declara participación efectiva en paraísos fiscales menor al 50% o presenta el APS incompleto, la sanción se aplicará sobre el proporcional de la base imponible considerando en el primer caso la participación en paraísos fiscales y en el segundo el porcentaje no reportado en el APS
+
+---
+class: inverse, center, middle
+
+# Función de cálculo de la participación efectiva
+
+---
+
+
+## Tablas auxiliares
+
+
+```r
+parents &lt;- raw_data %&gt;% 
+  select(sociedad) %&gt;% 
+  unique()
+
+parents_p &lt;- raw_data %&gt;% 
+  select(sociedad,nivel_aps) %&gt;% 
+  unique()
+
+beneficiarios &lt;- raw_data %&gt;% 
+  select(sociedad) %&gt;% 
+  unique() %&gt;% 
+  mutate(beneficiario_final = 0)
+```
+
+---
+
+## Identificación de los padres
+
+
+```r
+child_parent_soc &lt;- raw_data %&gt;% 
+  select(sociedad,accionista,nivel_aps,porcentaje) %&gt;% 
+  right_join(parents,by = c("accionista" = "sociedad")) %&gt;% 
+  mutate(nivel_aps = nivel_aps + 1,
+         nivel_aps = str_c("nivel_",nivel_aps)) %&gt;%
+  split(.$nivel_aps) %&gt;% 
+  imap(~{
+    
+    val &lt;- str_remove(.y,"nivel_")
+    
+    .x %&gt;% rename_with(.cols = porcentaje,~str_c(.x,
+                                                  val, sep = "_"))
+    
+    })
+```
+
+---
+
+## Creación de las cadenas de participación
+
+
+```r
+porcent_prelim &lt;- child_parent_soc %&gt;% 
+      reduce(full_join,by = c("accionista" = "sociedad")) %&gt;% 
+      pivot_longer(cols = c(matches("accionista")),
+                   names_to = "origen",
+                   values_to = "accionista") %&gt;% 
+      select(-matches("nivel"),
+             -origen) %&gt;% 
+      inner_join(parents_p,by = c("accionista" = "sociedad")) %&gt;% 
+      mutate(nivel_aps = nivel_aps)
+```
+
+---
+
+## Re-escritura de los porcentajes
+
+
+```r
+argumentos &lt;- porcent_prelim %&gt;% 
+  select(nivel_aps) %&gt;% 
+  unique() %&gt;% 
+  mutate(
+    name = glue("porcentaje_{nivel_aps}"),
+    exp = glue("if_else(nivel_aps &lt; {nivel_aps},NA_real_,porcentaje_{nivel_aps})"))
+
+expresiones &lt;- set_names(x = rlang::parse_exprs(argumentos$exp),
+                         nm = argumentos$name)
+
+
+ percent_df &lt;-  porcent_prelim %&gt;% 
+    mutate(!!!expresiones) %&gt;% 
+    rename(informante = sociedad,
+           sociedad = accionista) 
+```
+
+---
+
+## Volvemos a los datos originales
+
+
+```r
+data_procesada &lt;- raw_data %&gt;% 
+  left_join(percent_df) %&gt;% 
+  left_join(beneficiarios,
+            by = c("accionista" = "sociedad")) %&gt;% 
+  mutate(beneficiario_final = replace_na(beneficiario_final,1))
+```
+
+### Multiplicación a través de la cadena de propiedad
+
+
+```r
+data_procesada &lt;- data_procesada %&gt;% 
+  rowwise() %&gt;% 
+  mutate(product = prod(across(.cols = matches("porcentaje")),
+                        na.rm = T) ) 
+```
+
+---
+
+## Comprobación
+
+
+```r
+data_procesada %&gt;% 
+  filter(beneficiario_final == 1) %&gt;% 
+  pull(product) %&gt;% 
+  sum()
+```
+
+```
+## [1] 1
+```
+
+La función se guarda en el archivo:
+
+
+```r
+source("scripts/analisis_aps/funcion_identificacion_beneficiario.R")
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

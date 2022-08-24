@@ -1,7 +1,7 @@
 ---
 title: "Efectos de la legislación ecuatoriana sobre el pago efectivo del impuesto a la renta"
 subtitle: "Estudio sobre el anexo de participes, accionistas, miembros de directorio y administratores (APS) en el periodo 2012 - 2020"
-author: 
+author: "Alex Bajaña"
 format: html
 editor: visual
 ---
