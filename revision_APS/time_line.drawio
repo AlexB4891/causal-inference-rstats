@@ -1,0 +1,49 @@
+<mxfile host="65bd71144e">
+    <diagram id="W9Ra01t0DxcNzxdOCe_h" name="Page-1">
+        <mxGraphModel dx="1432" dy="1028" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="9" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="179.99786787231096" y="126.99629178313643" width="572.78" height="846.546319525462" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="verticalLabelPosition=bottom;verticalAlign=middle;html=1;shape=mxgraph.basic.partConcEllipse;fillColor=#10739E;strokeColor=none;startAngle=0.25;endAngle=0.007229339451388351;arcWidth=0.15;rotation=-135;fontSize=17;fontColor=#FFFFFF;shadow=0;fontStyle=1;opacity=50;" vertex="1" parent="9">
+                    <mxGeometry x="216.77815976273095" y="227.77315976273093" width="259.99" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Resolucion&amp;nbsp;" style="shape=mxgraph.infographic.parallelogram;dx=5;;html=1;fillColor=#B1DDF0;strokeColor=none;shadow=0;fontSize=17;fontColor=#FFFFFF;align=left;spacingLeft=10;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="-43.23000000000002" y="633" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Resolucion&amp;nbsp;" style="shape=mxgraph.infographic.parallelogram;dx=5;;html=1;fillColor=#B1DDF0;strokeColor=none;shadow=0;fontSize=17;fontColor=#FFFFFF;align=left;spacingLeft=10;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="222.77999999999997" y="483.00000000000006" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Resolucion&amp;nbsp;" style="shape=mxgraph.infographic.parallelogram;dx=5;;html=1;fillColor=#B1DDF0;strokeColor=none;shadow=0;fontSize=17;fontColor=#FFFFFF;align=left;spacingLeft=10;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="-43.23000000000002" y="313" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Resolucion&amp;nbsp;" style="shape=mxgraph.infographic.parallelogram;dx=5;;html=1;fillColor=#B1DDF0;strokeColor=none;shadow=0;fontSize=17;fontColor=#FFFFFF;align=left;spacingLeft=10;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="222.78" y="133" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="verticalLabelPosition=bottom;verticalAlign=middle;html=1;shape=mxgraph.basic.partConcEllipse;fillColor=#10739E;strokeColor=none;startAngle=0.25;endAngle=0.007229339451388351;arcWidth=0.15;rotation=45;fontSize=17;fontColor=#FFFFFF;shadow=0;fontStyle=1;opacity=50;" vertex="1" parent="9">
+                    <mxGeometry x="46.77815976273092" y="56.77315976273093" width="259.99" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="verticalLabelPosition=bottom;verticalAlign=middle;html=1;shape=mxgraph.basic.partConcEllipse;fillColor=#10739E;strokeColor=none;startAngle=0.25;endAngle=0.007229339451388351;arcWidth=0.15;rotation=-135;fontSize=17;fontColor=#FFFFFF;shadow=0;fontStyle=1;opacity=50;strokeWidth=0;" vertex="1" parent="9">
+                    <mxGeometry x="222.77815976273095" y="549.773159762731" width="259.99" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#10739E;fontSize=17;strokeColor=none;fontColor=#FFFFFF;shadow=0;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="96.77213212768902" y="101.77370821686358" width="160" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#10739E;fontSize=17;strokeColor=none;fontColor=#FFFFFF;shadow=0;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="272.772132127689" y="272.77370821686355" width="160" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#10739E;fontSize=17;strokeColor=none;fontColor=#FFFFFF;shadow=0;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="96.77213212768902" y="423.77370821686355" width="160" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#10739E;fontSize=17;strokeColor=none;fontColor=#FFFFFF;shadow=0;fontStyle=1;" vertex="1" parent="9">
+                    <mxGeometry x="272.772132127689" y="594.7737082168635" width="160" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="verticalLabelPosition=bottom;verticalAlign=middle;html=1;shape=mxgraph.basic.partConcEllipse;fillColor=#10739E;strokeColor=none;startAngle=0.25;endAngle=0.007229339451388351;arcWidth=0.15;rotation=45;fontSize=17;fontColor=#FFFFFF;shadow=0;fontStyle=1;opacity=50;strokeWidth=0;" vertex="1" parent="9">
+                    <mxGeometry x="53.77815976273092" y="378.7731597627309" width="259.99" height="240" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
