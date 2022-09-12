@@ -1,0 +1,236 @@
+---
+title: "Reporte de análisis estadístico"
+subtitle: "Revisión de la normativa y contenido del Anexo de Participes, accionistas, miembros de directorio y administradores APS"
+author: "Alex Bajaña"
+author-meta: "World Bank"
+format: docx
+editor: visual
+fontfamily: arial
+---
+
+## Los deberes de la administración tributaria y de los contribuyentes
+
+En su papel de ente rector, el Servicio de Rentas Internas (SRI) emite resoluciones de forma periódica. Las resoluciones modifican de manera transitoria o permanente las normas vigentes a las que los contribuyentes deben someterse dadas sus características, su actividad y ubicación dentro del Ecuador. Por años esta institución ha centrado sus esfuerzos en generar una estructura impositiva que respete los principios de equidad y progresividad. Estos esfuerzos se traducen a una lucha constante contra el uso de paraisos fiscales, la evasión y la elusión fiscal que constituyen estrategias de planificación fiscal perjudiciales para las economías locales.
+
+La estructura normativa sumada a la que rige en Ecuador sumada a la innovación tecnolpgica se traducen en la recopilación de registros administrativos fiscales cada vez de mayor calidad. A su vez, la comprensión de estos tatos y su correcto tratamiento permiten la extracción de información de gran utilidad para la consecución de los objetivos del SRI.
+
+A partir de 2007 entro en vigencia el Impuesto a la Salida de Divisas (ISD) con el objetivo de frenar la salida y entrada de capitales paloma (su tiempo en suelo ecuatoriano era menor a 3 meses) lo cual erosionaría la dolarización no hace mucho implementada. Con este impuesto el Ecuador contaba con un registro de las transacciones de entrada y salida de divisas (con mayor enfasis y calidad en la segundo tipo) denominado formulario MID. En cooperación con las administraciones fiscales de otros países el formulario MID permitía al SRI determinar la residencia de los beneficiarios de transferencias en paraísos fiscales y regímenes preferentes, caracterizados por sus beneficios tales como sigilo bancario y tasas impositivas menores.
+
+Este avance en materia de transparencia incentivó a la administración tributaria a fortalecer sus mecanismos de control con el desafió de mantener la simplicidad de sus mecanismos de recopilación y atención. Por un lado el SRI debe mantener a la población informada acerca de los deberes y obligaciones de los contribuyentes. Por otro lado, ha de mantener sus canales de atención y registro en correspondencia con los avances tecnológicos y los cambios legislativos. Estos esfuerzos buscan la consolidación de la cultura fiscal.
+
+Los deberes y obligaciones para los contribuyentes les son informados a los contribuyentes a la hora de su registro en el Registro Único de Contribuyentes (RUC). Estos deberes y obligaciones se han perfilado de manera que abarquen la diversidad de la población y permitan a sus miembros poner en marcha una actividad económica con los requisitos estrictamente necesarios. Eventos como el terremoto de 2016 en la provincia de Manabí y la pandemia de COVID 19 demostraron que el camino hacía la consolidación de una cultura fiscal inclusiva y equitativa es un desafio que requiere de la concordancia entre los objetivos de la administración tributaria y las demandas de la población.
+
+En el año 2012, entra en vigencia la presentación del Anexo de participes, accionistas, miembros de directorio, y administradores (APS) , un deber adicional para las sociedades que tienen sus actividades en suelo ecuatoriano. Con el objetivo de precautelar la transparencia y reducir los casos de corrupción dentro de la economía local. La implementación de este Anexo fue un efectivo golpe contra mecanismos tales la competencia desleal, la asociación ilícita y el uso de paraísos fiscales y regímenes preferentes. Avances potenciados aun más por la reforma de 2015 que determina un esquema de sanciones aun más efectivas rigidas.
+
+## Sanciones previstas de acuerdo al estado de la presentación del Anexo APS y el uso de paraisos fiscales
+
+Durante el periodo 2012-2020 se han generado cuatro resoluciones sobre que dictan las normas para la presentación del anexo APS: Resolución NAC-DGERCGC16-00000536 RO 919 que entró en vigencia de en enero de 2017 y es la normativa que rige en Ecuador hasta el presente; Resoluciones NAC-DGERCGC16-00000082 y No. NAC-DGERCGC15-00003236 las cuales determinan el sistema de sanciones de acuerdo a la presentación del Anexo APS y al uso de paraísos fiscales a partir del año 2016; Resolución NAC-DGERCGC12-0077 la cual establece por primera vez al anexo APS como mecanismo de monitoréo y lucha contra la corrupción y el fraude fiscal.
+
+## Sanciones por omisión e inconsistencias en la presentación de anexos y declaraciones
+
+### Sanciones pre-reforma (2012-2015)
+
+Hasta 2015, el Código Tributario del Ecuador en su articulo 107 menciona que la declaración (o ausencia de declaración) de impuestos o liquidaciones son documentos suficientes para dar iniciada una acción coactiva. En el numeral D del mismo articulo se determina que *Si el Servicio de Rentas Internas detectare inconsistencias en las declaraciones o en los anexos que presente el contribuyente, siempre que no generen diferencias a favor de la Administración Tributaria, notificará al sujeto pasivo con la inconsistencia detectada, otorgándole el plazo de 10 días para que presente la respectiva declaración o anexo de información sustitutivo, corrigiendo los errores detectados. La falta de cumplimiento de lo comunicado por la Administración Tributaria constituirá contravención, que será sancionada de conformidad con la ley. La imposición de la sanción no exime al sujeto pasivo del cumplimiento de su obligación, pudiendo la Administración Tributaria notificar nuevamente la inconsistencia y sancionar el incumplimiento. La reincidencia se sancionará de conformidad con lo previsto por el Código Tributario.*
+
+En este periodo, las sanciones respecto a la omisión o ausencia de presentación de los anexos, declaraciones de impuestos y otras obligaciones del contribuyente o sujeto pasivo, estaba determinado por un instructivo anual de sanciones pecuniarios sujetas al estado de la notificación y juicio de la acción coactiva. Así por ejemplo, una sociedad con fines de que en 2014 no haya presentado el anexo APS podía enfrentar una multa de 60 dólares en caso de que el SRI no haya notificado la omisión de presentación en el tiempo correspondiente. De igual manera en el caso de que esta omisión haya sido detectada por el SRI y este haya realizado la notificación correspondiente, la sociedad deberá pagar una multa de 90 dólares. Finalmente si el SRi emite un juicio y determina que la clausura no es materialmente posible, entonces la multa será de 120 dólares. Estás cuantías disminuyeron considerablemente respecto al año 2013 en el cual las sanciones eran de 125 dólares en el primer caso, 187.50 dólares en el segundo, y 250 dólares en el tercero.
+
+Las sanciones pecuniarias para las declaraciones de impuestos siguen en vigor. Sin embargo en el caso del anexo APS, se tiene un caso particular el cual es motivo de la resolución No. NAC-DGERCGC15-00003236.
+
+### Sanciones post-reforma (2016-2020)
+
+La resolución NAC-DGERCGC15-00003236 determina dos flancos de acción para aumentar la transparencia y disminuir el fraude fiscal. El primero es la sanción ante la omisión de presentación del Anexo APS, lo cual se traduce en un incremento del 3% de la tasa efectiva de impuesto a la renta a ser pagado por la empresa. Así mismo esta reforma indica qué si la participación total de la empresa en paraísos fiscales supera el 50% el incremento del 3% adicional de impuesto a la renta también se ha de aplicar a la totalidad de la base imponible. Adicionalmente, si la empresa declara participación efectiva en paraísos fiscales menor al 50% o presenta el APS incompleto, la sanción se aplicará sobre el proporcional de la base imponible considerando en el primer caso el porcentaje no reportado en el APS y en el segundo la participación en paraísos fiscales que presenta la sociedad informante.
+
+## Preguntas de investigación de acuerdo a la normativa del Ecuador
+
+Este cambio en la estructura de sanciones nos permiten determinar dos preguntas principales:
+
+-   ¿Las empresas que **no presentan (o presentan de manera incompleta) el anexo APS transparentaron en mayor medida** su información societaria tras **afrontar las sanciones propuestas en la reforma del 2015**?
+
+-   ¿**La empresas redujeron su participación societaria con residencia en paraísos fiscales** tras afrontar las **sanciones propuestas en la reforma del 2015**?
+
+Estas preguntas requieren que se determine en que medida el incremento del impuesto a la renta pagado por las sociedades en el tiempo está determinado por una de estas sanciones en los casos de omisión, inconsistencias o de presencia de paraísos fiscales en la participación accionaria de las sociedades. El desafío está en aislar otros factores que alteran el pago del impuesto a la renta tales como: incentivos a la producción determinados por otras leyes tales como el COPCI, deducciones por re inversión de utilidades, participación de los trabajadores, exoneraciones por condiciones especiales del contribuyente, sector productivo, sanciones derivadas por otros impuestos, entre otros.
+
+## Anotaciones sobre la estructura del APS (Fuente primaria de consulta: Data Map)
+
+Para resolver estas preguntas es necesario entrar en detalle sobre la estructura mínima del APS que nos permitira evaluar cuan efectivos fueron estos cambios normativos. A continuación se presenta un detalle de los campos más importantes del Anexo APS que permitirán crear los paneles de información para el análisis.
+
+### Identificaciones:
+
+-   **Año Fiscal.** (Año declarado, se toma la información presentada en el periodo, no las modificaciones realizadas en periodos posteriores)
+
+-   **Identificación de la sociedad informante anonimizada.** Corresponde a la sociedad que informa el Anexo APS y por ende su división accionaria
+
+-   **Nivel de participación societaria.** Indica el nivel de propiedad de acciones de la sociedad informante. Por ejemplo, una sociedad que declara un socio de tercer nivel de participación, quiere decir que la propiedad de la participación pasa por 2 sociedades antes de volverse efectiva
+
+-   **Identificación de sociedad accionista anonimizada.**Depende del nivel de participación, considerando que uno de los propósitos del anexo APS es identificar al beneficiario final. Por construcción de las bases de datos *el nivel de participación 1 será la misma sociedad informante*. El resto de niveles son participación indirecta (sociedades accionistas).
+
+### Identificaciones, el caso del beneficiario final:
+
+-   **Identificación anonimizada de los accionistas.** Se continua en la cadena de propiedad de acciones hasta llegar el beneficiario final que puede ser una de las siguientes categorías:
+
+-   Personas naturales con residencia fiscal en Ecuador
+
+-   Personas naturales o sociedades con residencia fiscal en el extranjero
+
+-   El estado ecuatoriano, empresas públicas, organismos internacionales. dependencias y organismos de estados extranjeros.
+
+### Porcentajes de participación:
+
+-   **Porcentaje de participación.** Indica el porcentaje de participación en la sociedad accionista declarada por la sociedad informante en un determinado nivel. El 100% se alcanza como todos los socios de la sociedad accionista en un determinado nivel.
+
+-   **Porcentaje efectivo.** Porcentaje de participación que tiene el beneficiario final (los tipos señalados en el punto anterior) de el total de la participación de la sociedad informante.
+
+```{r, echo=FALSE, out.width="75%", fig.cap="Figura 1. Diagrama ejemplo de relaciones societarias registradas en el Anexo APS"}
+knitr::include_graphics("propiedad_niveles.png")
+```
+
+# Paneles de información:
+
+Con la información mencionada se ha determinado la creación de tres paneles de datos construidos para poder entender de mejor manera el comportamiento de los contribuyentes de acuerdo respecto a la transparencia de su información. Para la construcción de los paneles se considerarán los siguientes periodos: *pre-reforma* que comprende el periodo 2012-2015 y *post-reforma* que comprende el periodo 2016-2020.
+
+-   **Panel desbalanceado:** Incluye a todos los contribuyentes, en este caso todos son sociedades, con sus declaraciones en cada uno de los años en que estuvo vigente el anexo APS. Con este panel se determinarán las tasas de cumplimiento y de declaración adecuada y completa de la información societaria. En este panel no importa si la sociedad declaró una sola vez en alguno de los dos periodos.
+-   **Panel semi-balanceado:** Para la construcción de este panel consideraremos a los contribuyentes que tengan al menos una declaración en ambos periodos. Esto nos permitirá determinar cambios en la transparencia antes y después de que entre en vigor la resolución para aquellas sociedades que cumplen de manera esporádica sus obligaciones.
+-   **Panel balanceado:** En este panel se incluyen a todas las sociedades que han cumplido sus obligaciones de presentación en cada uno de los años comprendidos en ambos periodos. En este panel se observa a aquellas sociedades *cumplidas.*
+
+```{r, echo = TRUE}
+
+# Comparación del número de contribuyentes en los tres paneles
+# Participación promedio ponderada por las ventas de los miembros de los paneles
+
+
+```
+
+> Aqui se describirán los detalles de los gráficos
+
+# Indices de clave:
+
+En primera instancia se han establecido 4 indicadores que permitirán entender el comportamiento de las sociedades respecto a la presentación del APS y su composición societaria presente en paraisos fiscales:
+
+## Respecto a la transparencia de la información societaria:
+
+-   *Indice de cumplimiento entre los declarantes del anexo:*
+    -   **Descripción:** Tasa anual resultado de la división de la frecuencia de empresas cuya suma de todas las participaciones de los beneficiarios finales sea menor a 100% y el número total de empresas informantes
+    -   **Fuente:** APS
+-   *Indice de cumplimiento entre los obligados a declarar el anexo:*
+    -   **Descripción:** Tasa anual resultado de la división de la frecuencia de empresas cuya suma de todas las participaciones de los beneficiarios finales sea menor a 100% y el número total de sociedades obligadas a llenar el anexo.
+    -   **Fuente:** APS, F101
+
+## Respecto al uso de paraísos fiscales:
+
+-   *Indice de uso de paraísos fiscales:*
+    -   **Descripción:** Tasa anual resultado de la división de la frecuencia de empresas cuya suma de todas las participaciones de los beneficiarios finales con residencia en paraisos fiscales sea superior al 50% y el número total de empresas informantes
+    -   **Fuente:** APS
+-   *Indice de cumplimiento entre los obligados a declarar el anexo:*
+    -   **Descripción:** Tasa anual resultado de la división de la frecuencia de empresas cuya suma de todas las participaciones de los beneficiarios finales con residencia en paraísos fiscales sea superior al 50% y el número total de sociedades obligadas a llenar el anexo.
+    -   **Fuente:** APS, F101
+
+# Estadísticas preliminares: periodo 2012 - 2020
+
+En esta sección los gráficos comparan dos tendencias:
+
+-   **Pasado:** Indica cual fue la frecuencia de las declaraciones, en un determinado estado, anteriores al año corriente o presente.
+
+-   **Presente:** Indica las declaraciones efectuadas en un determinado año.
+
+En cada gráfico se dará un ejemplo de ilustración.
+
+#### Anexos APS completos (participación igual al 100%)
+
+```{r}
+knitr::include_graphics(path = 'conteo_dummy_dummy_completo.png')
+```
+
+En la Figura 1 la linea roja determina a las declaraciones pasadas declaradas como completas mientras que la linea azul representa las declaraciones efectuadas en un año. Así por ejemplo, en el año 2015 se realizaron 24.817 declaraciones completas del APS, mientras que hasta 2014 existían 24.415 declaraciones completas considerando que la ultima declaración antes de 2015 pudo haber sido en algún año comprendido entre 2012 y 2014. Se observa que a medida que pasa el tiempo y las sociedades se adaptan al sistema de sanciones, es cada vez menor la diferencia entre el presente y el pasado, lo cual indica que aquellas sociedades que declaraban hasta t-1 son los mismos que declaran en t.
+
+Asi mismo se observa que la resolución incremento en gran medida la declaración completa y adecuada del anexo con un repunte en el año 2016. Sin embargo este efecto se disipa en el tiempo. Efecto que se contrasta con lo que sucede en el caso de las declaraciones incompletas.
+
+#### Anexos APS incompletos (participación declarada menor al 100%)
+
+```{r}
+knitr::include_graphics(path = 'conteo_dummy_dummy_incompleto.png')
+```
+
+En la Figura 2 la linea roja determina a las declaraciones pasadas declaradas como incompletas mientras que la linea azul representa las declaraciones incompletas efectuadas en un año. Así por ejemplo, en el año 2016 se realizaron 79.460 declaraciones incompletas del APS, mientras que hasta 2015 existían 111.663 declaraciones incompletas considerando que la ultima declaración antes de 2016 pudo haber sido en algún año comprendido entre 2012 y 2015. Se observa que a medida que pasa el tiempo y las sociedades hallan maneras de sortear las sanciones establecidas hay un incremento sostenido del número de declaraciones incompletas. Correspondiente al incremento señalado de declaraciones completas en el año 2016, en este gráfico se muestra que aquellas declaraciones que fueron incompletas hasta 2016 disminuyen mostrando la efectividad de la resolución en ese año, sin embargo, en el tiempo se observa que mientras las declaraciones completas disminuyen las incompletas incrementan su frecuencia.
+
+#### Uso de paraisos fiscales sancionado (participación igual o mayor al 50%)
+
+```{r}
+knitr::include_graphics(path = 'conteo_dummy_dummy_pf50.png')
+```
+
+En la Figura 3 la linea roja determina a las declaraciones pasadas declaradas con un porcentaje mayor o igual a 50% en paraísos fiscales mientras que la linea azul representa estas declaraciones efectuadas en un año. Así por ejemplo, en el año 2016 se realizaron 505 declaraciones con estas características, mientras que hasta 2015 existían 711 con estas características, considerando que la ultima declaración antes de 2015 pudo haber sido en algún año comprendido entre 2012 y 2014. Se observa nuevamente que en el año en que entra en vigencia la reforma todas las declaraciones de este tipo en el pasado eran considerablemente superiores a todos los años anteriores. En este mismo año el incremento de declaraciones con más del 50% de participación incrementa de manera esporádica para disminuir a un ritmo incluso más acelerado que las declaraciones completas de la Figura 1.
+
+#### Uso de paraisos fiscales de manera parcial (participación menor al 50%)
+
+```{r}
+knitr::include_graphics(path = 'conteo_dummy_dummy_pfparcial.png')
+```
+
+En concordancia con lo que sucede en la figura 2, el incremento de paraísos fiscales de manera parcial incrementa de manera sostenida en el tiempo. La diferencia casi inexistente entre el pasado y presente indica que aquellas sociedades que declaraban participación en paraísos fiscales menor al 50% lo continuaron haciendo, con la diferencia de que a partir de 2016 se suma a esta frecuencia aquellos que reduciendo su uso de paraísos fiscales, ahora declaran una participación inferior, ya sea por que la nomina de las sociedades intermediarias aumento, por la remoción de sociedades en la cadena de propiedad, entre otros.
+
+# Estadísticas preliminares
+
+## Diferencia entre la participación declarada en el tiempo corriente VS la participación declarada el último año declarado
+
+## Periodo 2012 - 2020
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2013.png')
+```
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2014.png')
+```
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2015.png')
+
+```
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2016.png')
+```
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2017.png')
+
+```
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2018.png')
+
+```
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2019.png')
+```
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2020.png')
+
+```
+
+# Estadísticas preliminares
+
+## Distribución por intervalos
+
+## Periodo 2012 - 2020
+
+```{r }
+
+knitr::include_graphics(path = "intervalos_distribucion_1.png")
+```
+
+```{r out.height = "40%"}
+
+knitr::include_graphics(path = "intervalos_distribucion_2.png")
+```
+
+```{r out.height = "40%"}
+
+knitr::include_graphics(path = "intervalos_distribucion_3.png")
+```
