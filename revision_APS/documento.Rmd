@@ -51,7 +51,7 @@ page %>%
 ```
 
 
-```{r}
+```{r, eval=FALSE}
 
 library(rvest)
 library(htmltools)
@@ -143,144 +143,6 @@ class: middle
 > Evolución de la base legal: Resolución NAC-DGERCGC16-00000536 RO 919 del 10-01-2017, que deroga a las Resoluciones NAC-DGERCGC16-00000082 y  No. NAC-DGERCGC15-00003236, la que a su vez derogó la Resolución NAC-DGERCGC12-0077
 ---
 
-```{r}
-
-# Tablas de multas antes de 2016
-
-cuantias_no_notificado <- tribble(~`Tipo de contribuyente`, ~`Cuantías en USD`,
- "Contribuyente especial" , "USD. 250,00",
-"Sociedades con fines de lucro", "USD.125,00",
- "Persona natural obligada  a llevar contabilidad", "USD. 62,50",
-"Persona natural no obligada a llevar contabilidad, sociedades sin fines de lucro", "USD. 31,25")
-
-
-
-cuantias_notificado <- tribble(~`Tipo de contribuyente`, ~`Cuantías en USD`,
- "Contribuyente especial" , "USD. 375,00",
-"Sociedades con fines de lucro", "USD.187,50",
- "Persona natural obligada  a llevar contabilidad", "USD. 93,75",
-"Persona natural no obligada a llevar contabilidad, sociedades sin fines de lucro", "USD. 46,88")
-
-
-omisiones <- tribble(~`Tipo de contribuyente`, ~`Cuantías en USD`,
- "Contribuyente especial" , "USD. 500,00",
-"Sociedades con fines de lucro", "USD.250,00",
- "Persona natural obligada  a llevar contabilidad", "USD. 125,00",
-"Persona natural no obligada a llevar contabilidad, sociedades sin fines de lucro", "USD. 62,50")
-
-# Función auxiliar:
-
-gt_format <- function(tabla){
-  
-  tabla %>% 
-    mutate(across(.cols = `Tipo de contribuyente`,.fns = factor,levels = c("Contribuyente especial" ,"Sociedades con fines de lucro",
-                                                                           "Persona natural obligada  a llevar contabilidad",
-                                                                           "Persona natural no obligada a llevar contabilidad, sociedades sin fines de lucro"))) %>% 
-    gt() %>% 
-    data_color(
-      columns = `Tipo de contribuyente`,
-      colors = scales::col_factor(
-        levels = c("Contribuyente especial" ,"Sociedades con fines de lucro",
-                   "Persona natural obligada  a llevar contabilidad",
-                   "Persona natural no obligada a llevar contabilidad, sociedades sin fines de lucro"),
-        palette = c("#E5EEF8", "#45ACD5" , "#E5EEF8","#E5EEF8"),
-        domain = c("Contribuyente especial" ,"Sociedades con fines de lucro",
-                   "Persona natural obligada  a llevar contabilidad",
-                   "Persona natural no obligada a llevar contabilidad, sociedades sin fines de lucro")
-      ),
-      apply_to = "fill",
-      autocolor_text = TRUE
-    )
-
-
-}
-
-```
-
-.pull-left[
-
-
-```{r}
-
-gt_format (cuantias_no_notificado) %>% # 
-  tab_header(
-    title = "Cuantías de multas liquidables por omisiones no notificadas por la administración tributaria.", 
-    subtitle = "Los sujetos pasivos que no hubieren recibido aviso de la administración tributaria, respecto de la no presentación de declaraciones o anexos" 
-  ) %>% 
-  tab_options(
-    table.background.color = "#FFFFFF00",
-    heading.background.color = "#005CBE",
-    column_labels.background.color = "#005CBE",
-    column_labels.font.size = px(10),
-    column_labels.font.weight = "bold",
-     table.font.color = "black",
-     table.font.size = px(12L),
-    table.width = px(500)
-)
-
-```
-
-
-]
-
-
-
-.pull-right[
-
-
-```{r}
-
-gt_format (cuantias_notificado) %>% # 
-  tab_header(
-    title = "Cuantías de multas liquidables por omisiones no notificadas por la administración tributaria.", 
-    subtitle = "Los sujetos pasivos que no hubieren recibido aviso de la administración tributaria, respecto de la no presentación de declaraciones o anexos" 
-  ) %>% 
-  tab_options(
-    table.background.color = "#FFFFFF00",
-    heading.background.color = "#005CBE",
-    column_labels.background.color = "#005CBE",
-    column_labels.font.size = px(10),
-    column_labels.font.weight = "bold",
-    table.font.color = "black",
-    table.font.size = px(12L),
-    table.width = px(500)
-)
-
-```
-
-
-]
-
-<br>
-
-.center[
-
-
-```{r}
-
-
-gt_format (omisiones) %>% # 
-  tab_header(
-    title = "Cuantías de multas liquidables por omisiones no notificadas por la administración tributaria.", 
-    subtitle = "Los sujetos pasivos que no hubieren recibido aviso de la administración tributaria, respecto de la no presentación de declaraciones o anexos" 
-  ) %>% 
-  tab_options(
-    table.background.color = "#FFFFFF00",
-    heading.background.color = "#005CBE",
-    column_labels.background.color = "#005CBE",
-    column_labels.font.size = px(10),
-    column_labels.font.weight = "bold",
-    table.font.color = "black",
-    table.font.size = px(12L),
-    table.width = px(500)
-)
-
-```
-
-
-]
-
----
 
 # Sanciones por la falta de declaración del Anexo
  
@@ -354,6 +216,11 @@ knitr::include_graphics("propiedad_niveles.png")
 ---
 
 ```{r}
+
+library(readxl)
+library(tidyverse)
+library(scales)
+library(gt)
 
 raw_data <- read_excel("ejemplo_aps.xlsx")
 
@@ -436,410 +303,154 @@ class: middle
 
 ---
 
+class: inverse,center,middle
+
+# Estadísticas preliminares
+
+## Anexos APS completos (participación igual al 100%) e iecompletos (participación menor al 100%)
+
+## Periodo 2012 - 2020
+
+---
+
+
+```{r}                                                                         
+knitr::include_graphics(path = 'conteo_dummy_dummy_completo.png')
+```                                                                            
+
+---
+
+```{r}                                                                          
+knitr::include_graphics(path = 'conteo_dummy_dummy_incompleto.png')
+```                                                                             
+
+---
+
+class: inverse,center,middle
+
+# Estadísticas preliminares
+
+## Uso de paraisos fiscales sancionada (participación igual o mayor al 50%) y parcialmente sancionada (participación menor al 50%)
+
+## Periodo 2012 - 2020
+
+---
+
+```{r}                                                                     
+knitr::include_graphics(path = 'conteo_dummy_dummy_pf50.png')
+```                                                                        
+
+---
+
+```{r}                                                                         
+knitr::include_graphics(path = 'conteo_dummy_dummy_pfparcial.png')
+```                                                                            
+
+
+---
+
+class: inverse,center,middle
+
+# Estadísticas preliminares
+
+## Diferencia entre la participación declarada en el tiempo corriente VS la participación declarada el último año declarado 
+
+## Periodo 2012 - 2020
+---
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2013.png')
+```
+
+---
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2014.png')
+```
+
+---
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2015.png')
+
+```
+---
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2016.png')
+```
+
+---
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2017.png')
+
+```
+
+---
+
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2018.png')
+
+```
+
+---
+
+```{r  out.width = "80%"}
+knitr::include_graphics(path = 'data/distribucion_variacion_2019.png')
+```
+---
+
+```{r  out.width = "80%"}
+
+knitr::include_graphics(path = 'data/distribucion_variacion_2020.png')
+
+```
+
+
+---
+
+class: inverse,center,middle
+
+# Estadísticas preliminares
+
+## Distribución por intervalos 
+
+## Periodo 2012 - 2020
+
+---
+
+```{r out.height = "40%"}
+
+knitr::include_graphics(path = "intervalos_distribucion_1.png")
+```
+
+---
+
+```{r out.height = "40%"}
+
+knitr::include_graphics(path = "intervalos_distribucion_2.png")
+```
+
+---
+
+```{r out.height = "40%"}
+
+knitr::include_graphics(path = "intervalos_distribucion_3.png")
+```
+
+---
+
 class: middle
 # Estadísticas agregadas de la participación en paraisos fiscales y el estado de transparencia de la información societaria en el anexo APS
 
 ## <p style="color:red">Los datos presentados en esta sección están en estado de corrección debido al *cálculo y validación de los valores de porcentaje efectivo*</p>
 
 
----
- 
-```{r}
-compl <- read_tsv("../../data/tablas_planas/agregados/completos_part_pff.txt") %>% 
-  pivot_longer(cols = -1,names_to = "year",values_to = "completos")
-
-incompl <- read_tsv("../../data/tablas_planas/agregados/incompletos_part_pff.txt") %>% 
-  pivot_longer(cols = -1,names_to = "year",values_to = "incompletos")
-
-mas50 <- read_tsv("../../data/tablas_planas/agregados/mayor_50_pff.txt") %>% 
-  pivot_longer(cols = -1,names_to = "year",values_to = "mayor50")
-
-plot_bar <- function(tabla,var,cincuenta = FALSE){
-  
-
-  
-  if(cincuenta == TRUE){
-    
-    tabla <-  tabla %>% 
-      filter(partic_en_pff_factor != "(100,Inf]",
-             !is.na(partic_en_pff_factor)) %>% 
-      mutate(partic_en_pff_factor = as.character(partic_en_pff_factor),
-             tramo = case_when(partic_en_pff_factor == "(40,50]" ~ "Igual a 50%",
-                               partic_en_pff_factor == "(90,100]" ~ "Mayor al 90%",
-                               TRUE ~ "Entre 50% y 90%"),
-             tramo = factor(tramo,levels = c("Igual a 50%",
-                                             "Entre 50% y 90%",
-                                             "Mayor al 90%")))
-    
-  
-  totales <- tabla %>% 
-    group_by(year,tramo) %>% 
-    summarise(across(.cols = all_of(var),
-                     .fns = sum,na.rm = TRUE)) %>% 
-    mutate(pos = "tramo",
-           across(.cols = all_of(var),
-                  .fns = list(label = ~number(.x,big.mark = " ")),
-                  .names = "{.fn}"))
-    
-  intermedios <- tabla %>% 
-    filter(!partic_en_pff_factor %in% c("[0,10]","(90,100]"),
-             !is.na(partic_en_pff_factor)) %>% 
-    mutate(partic_en_pff_factor = factor(partic_en_pff_factor,
-                                         levels = c("(40,50]","(50,60]",
-                                                    "(60,70]","(70,80]","(80,90]"),
-                                         labels = c("(40%, 50%]","(50%, 60%]",
-                                                    "(60%, 70%]","(70%, 80%]","(80%, 90%]")),
-           across(.cols = all_of(var),
-                  .fns = list(label = ~number(as.integer(.x),big.mark = " ",accuracy = 1)),
-                  .names = "{.fn}"),
-           across(.cols = label,
-                  .fns = ~if_else(as.integer(str_remove(.x," ")) < 4,NA_character_,label),
-                  .names = "{.col}"))
-    
-  }else{
-    
-      tabla <-  tabla %>% 
-    filter(partic_en_pff_factor != "(100,Inf]") %>% 
-    mutate(partic_en_pff_factor = as.character(partic_en_pff_factor),
-           tramo = case_when(partic_en_pff_factor == "[0,10]" ~ "Menor al 10%",
-                             partic_en_pff_factor == "(90,100]" ~ "Mayor al 90%",
-                             TRUE ~ "Entre 10% y 90%"),
-           tramo = factor(tramo,levels = c("Menor al 10%",
-                                           "Entre 10% y 90%",
-                                           "Mayor al 90%")))
-  
-  
-  totales <- tabla %>% 
-    group_by(year,tramo) %>% 
-    summarise(across(.cols = all_of(var),
-                     .fns = sum,na.rm = TRUE)) %>% 
-    mutate(pos = "tramo",
-           across(.cols = all_of(var),
-                  .fns = list(label = ~number(.x,big.mark = " ")),
-                  .names = "{.fn}"))
-    
-  intermedios <- tabla %>% 
-    filter(!partic_en_pff_factor %in% c("[0,10]","(90,100]")) %>% 
-    mutate(partic_en_pff_factor = factor(partic_en_pff_factor,
-                                         levels = c("(10,20]","(20,30]",
-                                                    "(30,40]","(40,50]","(50,60]",
-                                                    "(60,70]","(70,80]","(80,90]"),
-                                         labels = c("(10%, 20%]","(20%, 30%]",
-                                                    "(30%, 40%]","(40%, 50%]","(50%, 60%]",
-                                                    "(60%, 70%]","(70%, 80%]","(80%, 90%]")),
-           across(.cols = all_of(var),
-                  .fns = list(label = ~number(as.integer(.x),big.mark = " ",accuracy = 1)),
-                  .names = "{.fn}"),
-           across(.cols = label,
-                  .fns = ~if_else(as.integer(str_remove(.x," ")) < 4,NA_character_,label),
-                  .names = "{.col}"))  
-  }
-  
-  
-  plot_1 <-  ggplot(data = intermedios,
-                    aes_string(x = "partic_en_pff_factor",y = var)) +
-    geom_col() +
-    geom_text(aes_string(label = "label"),vjust = 1.5,color = "white",size = 2.5) +
-    geom_vline(mapping = aes(xintercept = 4.5),
-               hjust = 1.5,color = "blue",size = 1) +
-    facet_wrap(.~year,nrow = 3,ncol = 3) +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 90,size = 6),
-          axis.text.y = element_text(size = 6),
-          panel.spacing.x = unit(1, "lines"),
-          panel.spacing.y = unit(1, "lines"),
-          plot.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-          panel.grid.major = element_line(colour = "lightgray"),
-          panel.grid.minor = element_line(colour = "lightgray")) 
-  
-  plot_2 <- ggplot(data = totales,
-                   aes_string(x = "pos",y = var,fill = "tramo")) +
-    geom_col() +
-    geom_text(aes_string(label = "label"),vjust = 1.5,color = "white",size = 3.5) +
-    facet_grid(cols = vars(year),
-               rows = vars(tramo),
-               scales = "free",switch = "both") +
-    scale_y_continuous(position = "right",labels = number_format(big.mark = " "))+
-    scale_fill_manual(values = c("#2C91FD","#0057B4","#002F62")) +
-    theme_minimal() +
-    theme(
-      legend.position = "none",
-      panel.spacing.x = unit(0, "lines"),
-          panel.spacing.y = unit(2, "lines"),
-      axis.text.x = element_blank(),
-          strip.text.x =  element_text(angle = 0),
-          strip.text.y.left = element_text(angle=0),
-          axis.title = element_blank(),
-          plot.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-          panel.grid.major = element_line(colour = "lightgray"),
-          panel.grid.minor = element_line(colour = "lightgray"))
-  
-  list(plot_1,plot_2)
-  
-  }
-
-```
-
-
-```{r}
-plot_1 <- plot_bar(compl,"completos")[[2]] +
-  labs(x = "",
-       title = "Conteos por paritipación en paraisos fiscales y anexos completos",
-       subtitle = "Los anexos completos suman 100% de participación",
-       caption = "Las sociedades que tengan 50% o más de su participación en paraisos fiscales serán multadas conforme a la legislación.")
-
-plot_1
-```
-
----
-
-
-```{r}
-plot_2 <- plot_bar(compl,"completos")[[1]]+
-  labs(x = "",
-       title = "Conteos por paritipación en paraisos fiscales y anexos completos",
-       subtitle = "Entre 10% y 90% de participación en paraisos fiscales",
-       caption = "Las sociedades que tengan 50% o más de su participación en paraisos fiscales serán multadas conforme a la legislación.")
-
-plot_2
-```
-
----
-
-```{r}
-plot_3 <- plot_bar(incompl,"incompletos")[[2]] +
-  labs(x = "",
-       title = "Conteos por paritipación en paraisos fiscales y anexos incompletos",
-       subtitle = "Los anexos completos suman menos de 100% de participación",
-       caption = "Las sociedades que tengan 50% o más de su participación en paraisos fiscales serán multadas conforme a la legislación.")
-
-plot_3
-```
-
----
-
-```{r}
-plot_4 <- plot_bar(incompl,"incompletos")[[1]] +
-  labs(x = "",
-       title = "Conteos por paritipación en paraisos fiscales y anexos completos",
-       subtitle = "Entre 10% y 90% de participación en paraisos fiscales",
-       caption = "Las sociedades que tengan 50% o más de su participación en paraisos fiscales serán multadas conforme a la legislación.")
-
-plot_4
-    
-```
-
----
-
-```{r}
-plot_5 <- plot_bar(mas50,"mayor50",cincuenta = TRUE)[[2]] +
-  labs(x = "",
-       title = "Conteos por paritipación en paraisos fiscales mayor al 50%",
-       subtitle = "Independiente del estado del anexo",
-       caption = "Las sociedades que tengan 50% o más de su participación en paraisos fiscales serán multadas conforme a la legislación.")
-
-plot_5
-```
-
----
-
-```{r}
-plot_6 <- plot_bar(mas50,"mayor50",cincuenta = TRUE)[[1]] +
-  labs(x = "",
-       title = "Conteos por paritipación en paraisos fiscales y anexos completos",
-       subtitle = "Los anexos completos suman 100% de participación",
-       caption = "Las sociedades que tengan 50% o más de su participación en paraisos fiscales serán multadas conforme a la legislación.")
-
-plot_6
-```
-
----
-
-```{r}
-
-tax <- read_excel("../../../../recursos/tax_havens/tax_havens_inouts.xlsx")
-
-iso <- read_tsv("../../../../recursos/paises_iso/iso_sri_country_ggplot2.txt")
-
-tax_havens <- regex_left_join(tax,iso,by = c("match_sri" = "nombre_sri")) %>% 
-  filter(!duplicated(match_sri),
-         `2014` == 1) %>% 
-  arrange(match_sri)
-
-
-read_and_append <- function(ruta){
-
-  list.files(ruta,full.names = TRUE) %>% 
-    map(read_tsv)   %>%
-    map(pivot_longer,cols = c(-1,-13),names_to = "participacion",values_to = "conteos") %>%
-    reduce(bind_rows) %>%
-    filter(!is.na(conteos),
-           conteos > 0)
-  
-}
-
-
-compl_pais <- read_and_append("../../data/tablas_planas/aps_completos") 
-
-incom_pais <- read_and_append("../../data/tablas_planas/aps_incompletos")
-
-# mas50_pais <- read_and_append("../../data/tablas_planas/mayores_50perc")
-
-```
-
----
-
-class: iunverse, center, middle
-
-# Cambios en los paises de residencia de los accionistas
-
----
-
-
-```{r}
-
-plot_post_pre <- function(tabla_pais){
-top_10_grupo <- tabla_pais %>%
-  group_by(participacion,year) %>% 
-  arrange(desc(conteos),participacion,year) %>% 
-  slice(1:10) %>% 
-  mutate(otros = 0,
-         pais_accionista = replace_na(pais_accionista,"No especificado"))
-
-tops <- tabla_pais %>% 
-  filter(pais_accionista != "ECUADOR") %>% 
-  mutate(indicador = year <= 2015,
-         pais_accionista = replace_na(pais_accionista,"No especificado")) %>% 
-  group_by(indicador,pais_accionista) %>% 
-  summarise(across(conteos,sum,na.rm = T)) %>% 
-  split(.$indicador) %>% 
-  map(arrange,desc(conteos)) %>% 
-  map(rowid_to_column) %>% 
-  map(mutate, pais_accionista_2  = case_when(rowid <= 11 ~ pais_accionista,
-                                             rowid > 11 ~ "Resto del mundo")) %>% 
-  reduce(bind_rows)
-
-tops_mov <-
-  
-  tops %>% 
-  split(.$indicador) %>% 
-  map(~.x %>% 
-        select(pais_accionista,pais_accionista_2,rowid) %>% 
-        mutate(rowid = if_else(rowid < 12,rowid,12L))       %>%
-        right_join(tabla_pais %>% mutate(indicador = year <= 2015),by = "pais_accionista")  %>%
-        group_by(pais_accionista_2,participacion,rowid) %>%
-        summarise(across(conteos,sum)) %>%
-        ungroup() %>%
-        mutate(
-          participacion = factor(participacion,
-                                      levels = c("[0,10]","(10,20]","(20,30]",
-                                                 "(30,40]","(40,50]","(50,60]",
-                                                 "(60,70]","(70,80]","(80,90]","(90,100]"),
-                                      labels = c("(0, 10%]","(10%, 20%]","(20%, 30%]",
-                                                 "(30%, 40%]","(40%, 50%]","(50%, 60%]",
-                                                 "(60%, 70%]","(70%, 80%]","(80%, 90%]","(90%, 100%]")),
-          pais_accionista_2 = replace_na(pais_accionista_2,"No especificado"),
-               pais_accionista_2 = factor(pais_accionista_2),
-               pais_accionista_2 = fct_reorder(pais_accionista_2,rowid)
-               )
-      
-        ) 
-
-comparacion_periodos <- tops_mov %>%
-  map(~.x %>% ggplot(mapping = aes(x = participacion,y = pais_accionista_2)) + 
-  geom_tile(aes(fill = log(conteos))))
-
-antes <- comparacion_periodos[["TRUE"]] +
-  ggtitle( "a) Pre reforma")
-
-
-despues <- comparacion_periodos[["FALSE"]] +
-  ggtitle( "b) Post reforma")
-
-list(antes = antes,despues = despues)
-
-}  
-
-completos_pais <- plot_post_pre(compl_pais)
-
-completos_pais[["antes"]] + completos_pais[["despues"]] + plot_layout(guides = 'collect') + 
-  plot_annotation(
-    title = 'Comparación de las residencias de los accionistas pre y post reforma',
-    subtitle = 'Anexos completos, 100% de participación declarada',
-  ) &
-  theme( 
-    axis.text.x = element_text(angle = 90,size = 6),
-          axis.text.y = element_text(size = 6),
-    panel.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-    legend.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-    plot.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-          panel.grid.major = element_line(colour = "lightgray"),
-          panel.grid.minor = element_line(colour = "lightgray")) 
- 
-```
-
-
----
-
-```{r}
-
-incompletos_pais <- plot_post_pre(incom_pais)
-
-incompletos_pais[["antes"]] + incompletos_pais[["despues"]] + plot_layout(guides = 'collect') + 
-  plot_annotation(
-    title = 'Comparación de las residencias de los accionistas pre y post reforma',
-    subtitle = 'Anexos incompletos, menos del 100% de participación declarada'
-  ) &
-  theme(axis.text.x = element_text(angle = 90,size = 6),
-          axis.text.y = element_text(size = 6),
-        panel.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-    legend.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-    plot.background = element_rect(fill = "#E5EEF8",
-                                         color = "#E5EEF8") ,
-          panel.grid.major = element_line(colour = "lightgray"),
-          panel.grid.minor = element_line(colour = "lightgray")) 
-
-```
-
----
-
-```{r}
-
-accionistas <- 
-  list.files("../../data/tablas_planas/unicidad",full.names = T) %>% 
-  map(read_tsv) %>% 
-  map(tail,1) %>% 
-  reduce(bind_rows)
-
-accionistas %>% 
-  pivot_longer(2:19) %>% 
-  mutate(name  = str_remove_all(name,"[:digit:]")) %>% 
-  pivot_wider(names_from = "name",values_from = "value") %>% 
-  unnest() %>% 
-  filter(complete.cases(.)) %>% 
-  gt() %>% 
-  tab_header(
-    title = "Sociedades que declaran participación directa e indirecta", 
-    subtitle = "La declaración indirecta se refiere a sociedades que participan en la propiedad de una empresa padre. " 
-  ) %>% 
-  tab_options(
-    table.background.color = "#FFFFFF00",
-    heading.background.color = "#005CBE",
-    column_labels.background.color = "#005CBE",
-    column_labels.font.size = px(10),
-    column_labels.font.weight = "bold",
-     table.font.color = "black",
-     table.font.size = px(12L),
-    table.width = px(500)
-)
-```
 
 ---
 
